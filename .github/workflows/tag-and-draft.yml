@@ -1,0 +1,10 @@
+name: Tag and create release draft
+
+on:
+   push:
+      branches:
+         - releases/*
+
+jobs:
+   tag-and-release:
+      uses: mostafahussein/js-release-workflow/.github/workflows/tag-and-release.yml@main
