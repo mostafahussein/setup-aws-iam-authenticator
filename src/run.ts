@@ -12,7 +12,7 @@ import {
 } from './helpers'
 
 const iamAuthToolName = 'aws-iam-authenticator'
-const stableiamAuthVersion = '0.5.9'
+const stableiamAuthVersion = '0.6.2'
 const stableVersionUrl =
    'https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/latest'
 

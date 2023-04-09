@@ -39,10 +39,10 @@ jobs:
          - name: Setup aws-iam-authenticator
            uses: ./
            with:
-              version: 'v0.5.9'
+              version: 'v0.6.2'
 
          - name: Fetch aws-iam-authenticator latest version dynamically and validate the setup
            run: python test/validate-aws-iam-authenticator.py latest
 
          - name: Set specific aws-iam-authenticator version and validate the setup
-           run: python test/validate-aws-iam-authenticator.py 'v0.5.9'
+           run: python test/validate-aws-iam-authenticator.py 'v0.6.2'
