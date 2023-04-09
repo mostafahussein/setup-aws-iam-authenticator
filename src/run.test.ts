@@ -45,11 +45,11 @@ describe('Testing all functions in run file.', () => {
       (arch) => {
          jest.spyOn(os, 'type').mockReturnValue('Linux')
          const iamAuthLinuxUrl = util.format(
-            'https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.5.9/aws-iam-authenticator_0.5.9_linux_%s',
+            'https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.6.2/aws-iam-authenticator_0.6.2_linux_%s',
             arch
          )
 
-         expect(getiamAuthDownloadURL('0.5.9', arch)).toBe(iamAuthLinuxUrl)
+         expect(getiamAuthDownloadURL('0.6.2', arch)).toBe(iamAuthLinuxUrl)
          expect(os.type).toBeCalled()
       }
    )
@@ -59,11 +59,11 @@ describe('Testing all functions in run file.', () => {
       (arch) => {
          jest.spyOn(os, 'type').mockReturnValue('Darwin')
          const iamAuthDarwinUrl = util.format(
-            'https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.5.9/aws-iam-authenticator_0.5.9_darwin_%s',
+            'https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.6.2/aws-iam-authenticator_0.6.2_darwin_%s',
             arch
          )
 
-         expect(getiamAuthDownloadURL('0.5.9', arch)).toBe(iamAuthDarwinUrl)
+         expect(getiamAuthDownloadURL('0.6.2', arch)).toBe(iamAuthDarwinUrl)
          expect(os.type).toBeCalled()
       }
    )
@@ -74,10 +74,10 @@ describe('Testing all functions in run file.', () => {
          jest.spyOn(os, 'type').mockReturnValue('Windows_NT')
 
          const iamAuthWindowsUrl = util.format(
-            'https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.5.9/aws-iam-authenticator_0.5.9_windows_%s.exe',
+            'https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.6.2/aws-iam-authenticator_0.6.2_windows_%s.exe',
             arch
          )
-         expect(getiamAuthDownloadURL('0.5.9', arch)).toBe(iamAuthWindowsUrl)
+         expect(getiamAuthDownloadURL('0.6.2', arch)).toBe(iamAuthWindowsUrl)
          expect(os.type).toBeCalled()
       }
    )
@@ -86,30 +86,30 @@ describe('Testing all functions in run file.', () => {
       jest
          .spyOn(toolCache, 'downloadTool')
          .mockReturnValue(Promise.resolve('pathToTool'))
-      jest.spyOn(fs, 'readFileSync').mockReturnValue('{"tag_name":"v0.5.9"}')
+      jest.spyOn(fs, 'readFileSync').mockReturnValue('{"tag_name":"v0.6.2"}')
 
-      expect(await run.getStableiamAuthVersion()).toBe('0.5.9')
+      expect(await run.getStableiamAuthVersion()).toBe('0.6.2')
       expect(toolCache.downloadTool).toBeCalled()
       expect(fs.readFileSync).toBeCalledWith('pathToTool', 'utf8')
    })
 
-   test('getStableiamAuthVersion() - return default v0.5.9 if version read is empty', async () => {
+   test('getStableiamAuthVersion() - return default v0.6.2 if version read is empty', async () => {
       jest
          .spyOn(toolCache, 'downloadTool')
          .mockReturnValue(Promise.resolve('pathToTool'))
       jest.spyOn(fs, 'readFileSync').mockReturnValue('{}')
 
-      expect(await run.getStableiamAuthVersion()).toBe('0.5.9')
+      expect(await run.getStableiamAuthVersion()).toBe('0.6.2')
       expect(toolCache.downloadTool).toBeCalled()
       expect(fs.readFileSync).toBeCalledWith('pathToTool', 'utf8')
    })
 
-   test('getStableiamAuthVersion() - return default v0.5.9 if unable to download file', async () => {
+   test('getStableiamAuthVersion() - return default v0.6.2 if unable to download file', async () => {
       jest
          .spyOn(toolCache, 'downloadTool')
          .mockRejectedValue('Unable to download.')
 
-      expect(await run.getStableiamAuthVersion()).toBe('0.5.9')
+      expect(await run.getStableiamAuthVersion()).toBe('0.6.2')
       expect(toolCache.downloadTool).toBeCalled()
    })
 
@@ -124,10 +124,10 @@ describe('Testing all functions in run file.', () => {
       jest.spyOn(os, 'type').mockReturnValue('Windows_NT')
       jest.spyOn(fs, 'chmodSync').mockImplementation(() => {})
 
-      expect(await run.downloadiamAuth('0.5.9')).toBe(
+      expect(await run.downloadiamAuth('0.6.2')).toBe(
          path.join('pathToCachedTool', 'aws-iam-authenticator.exe')
       )
-      expect(toolCache.find).toBeCalledWith('aws-iam-authenticator', '0.5.9')
+      expect(toolCache.find).toBeCalledWith('aws-iam-authenticator', '0.6.2')
       expect(toolCache.downloadTool).toBeCalled()
       expect(toolCache.cacheFile).toBeCalled()
       expect(os.type).toBeCalled()
@@ -143,10 +143,10 @@ describe('Testing all functions in run file.', () => {
          .spyOn(toolCache, 'downloadTool')
          .mockRejectedValue('Unable to download aws-iam-authenticator.')
 
-      await expect(run.downloadiamAuth('0.5.9')).rejects.toThrow(
+      await expect(run.downloadiamAuth('0.6.2')).rejects.toThrow(
          'DownloadiamAuthFailed'
       )
-      expect(toolCache.find).toBeCalledWith('aws-iam-authenticator', '0.5.9')
+      expect(toolCache.find).toBeCalledWith('aws-iam-authenticator', '0.6.2')
       expect(toolCache.downloadTool).toBeCalled()
    })
 
@@ -181,10 +181,10 @@ describe('Testing all functions in run file.', () => {
       jest.spyOn(fs, 'chmodSync').mockImplementation(() => {})
       jest.spyOn(toolCache, 'downloadTool')
 
-      expect(await run.downloadiamAuth('0.5.9')).toBe(
+      expect(await run.downloadiamAuth('0.6.2')).toBe(
          path.join('pathToCachedTool', 'aws-iam-authenticator.exe')
       )
-      expect(toolCache.find).toBeCalledWith('aws-iam-authenticator', '0.5.9')
+      expect(toolCache.find).toBeCalledWith('aws-iam-authenticator', '0.6.2')
       expect(os.type).toBeCalled()
       expect(fs.chmodSync).toBeCalledWith(
          path.join('pathToCachedTool', 'aws-iam-authenticator.exe'),
@@ -194,7 +194,7 @@ describe('Testing all functions in run file.', () => {
    })
 
    test('run() - download specified version and set output', async () => {
-      jest.spyOn(core, 'getInput').mockReturnValue('0.5.9')
+      jest.spyOn(core, 'getInput').mockReturnValue('0.6.2')
       jest.spyOn(toolCache, 'find').mockReturnValue('pathToCachedTool')
       jest.spyOn(os, 'type').mockReturnValue('Windows_NT')
       jest.spyOn(fs, 'chmodSync').mockImplementation()
@@ -216,7 +216,7 @@ describe('Testing all functions in run file.', () => {
       jest
          .spyOn(toolCache, 'downloadTool')
          .mockReturnValue(Promise.resolve('pathToTool'))
-      jest.spyOn(fs, 'readFileSync').mockReturnValue('{"tag_name":"v0.5.9"}')
+      jest.spyOn(fs, 'readFileSync').mockReturnValue('{"tag_name":"v0.6.2"}')
       jest.spyOn(toolCache, 'find').mockReturnValue('pathToCachedTool')
       jest.spyOn(os, 'type').mockReturnValue('Windows_NT')
       jest.spyOn(fs, 'chmodSync').mockImplementation()

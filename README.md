@@ -2,7 +2,7 @@
 
 #### Sample workflow to install a specific version of aws-iam-authenticator binary on the runner.
 
-Acceptable values are latest or any semantic version string like `0.5.9`. Use this action in workflow to define which version of aws-iam-authenticator will be used.
+Acceptable values are latest or any semantic version string like `0.6.2`. Use this action in workflow to define which version of aws-iam-authenticator will be used.
 
 ```yaml
 - uses: mostafahussein/setup-aws-iam-authenticator@v1
