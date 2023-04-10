@@ -1,5 +1,5 @@
 name: 'aws-iam-authenticator tool installer'
-description: 'Install a specific version of aws-iam-authenticator binary.'
+description: 'Install a specific version of aws-iam-authenticator binary. Acceptable values are latest or any semantic version string like 0.5.9'
 inputs:
    version:
       description: 'Version of aws-iam-authenticator'
