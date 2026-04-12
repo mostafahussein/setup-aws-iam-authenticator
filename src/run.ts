@@ -98,4 +98,6 @@ export async function downloadiamAuth(version: string): Promise<string> {
    return iamAuthPath
 }
 
-run().catch(core.setFailed)
+if (process.env.NODE_ENV !== 'test') {
+   run().catch(core.setFailed)
+}
