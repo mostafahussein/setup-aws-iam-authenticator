@@ -12,7 +12,7 @@ import {
 } from './helpers'
 
 const iamAuthToolName = 'aws-iam-authenticator'
-const stableiamAuthVersion = '0.6.2'
+const stableiamAuthVersion = '0.7.12'
 const stableVersionUrl =
    'https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/latest'
 
@@ -98,4 +98,6 @@ export async function downloadiamAuth(version: string): Promise<string> {
    return iamAuthPath
 }
 
-run().catch(core.setFailed)
+if (process.env.NODE_ENV !== 'test') {
+   run().catch(core.setFailed)
+}

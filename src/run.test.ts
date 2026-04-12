@@ -93,23 +93,23 @@ describe('Testing all functions in run file.', () => {
       expect(fs.readFileSync).toBeCalledWith('pathToTool', 'utf8')
    })
 
-   test('getStableiamAuthVersion() - return default v0.6.2 if version read is empty', async () => {
+   test('getStableiamAuthVersion() - return default v0.7.12 if version read is empty', async () => {
       jest
          .spyOn(toolCache, 'downloadTool')
          .mockReturnValue(Promise.resolve('pathToTool'))
       jest.spyOn(fs, 'readFileSync').mockReturnValue('{}')
 
-      expect(await run.getStableiamAuthVersion()).toBe('0.6.2')
+      expect(await run.getStableiamAuthVersion()).toBe('0.7.12')
       expect(toolCache.downloadTool).toBeCalled()
       expect(fs.readFileSync).toBeCalledWith('pathToTool', 'utf8')
    })
 
-   test('getStableiamAuthVersion() - return default v0.6.2 if unable to download file', async () => {
+   test('getStableiamAuthVersion() - return default v0.7.12 if unable to download file', async () => {
       jest
          .spyOn(toolCache, 'downloadTool')
          .mockRejectedValue('Unable to download.')
 
-      expect(await run.getStableiamAuthVersion()).toBe('0.6.2')
+      expect(await run.getStableiamAuthVersion()).toBe('0.7.12')
       expect(toolCache.downloadTool).toBeCalled()
    })
 
